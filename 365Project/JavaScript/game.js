@@ -5,12 +5,12 @@ let second = 0
 let maxScore = 6
 let userArray = []
 let gameArray = []
-let imagePath = ["../images/catontree.png",
-                "../images/dog.png",
-                "../images/penguin.png",
-                "../images/gorilla.png",
-                "../images/prairiedog.png",
-                "../images/capybara.png"]
+let imagePath = ["images/catontree.png",
+                "images/dog.png",
+                "images/penguin.png",
+                "images/gorilla.png",
+                "images/prairiedog.png",
+                "images/capybara.png"]
 
 
 
@@ -39,16 +39,29 @@ startButton.addEventListener('click', function startGame() {
     resetGame();
 });
 
+function showCard(card){
+    let backImg = card.querySelector('.back img');
+    let cardID = parseInt(card.id.split('-')[1], 10);
+    backImg.src = imagePath[cardID % imagePath.length];
+    card.classList.add('flipped')
+}
+
+
+
 // Get the Users Clicks.
 
 cardCollect.forEach(card => {
     card.addEventListener('click', function userClick(idGrabber){
-        if (idGrabber.currentTarget.dataset.flipped === 'false'){
-            let userChoice = idGrabber.currentTarget.id;
+        let userChoice = idGrabber.currentTarget;
+        if (card.dataset.flipped === 'false'){
+
+            card.dataset.flipped = 'true';
+            showCard(userChoice);
             userArray.push(userChoice);
-            idGrabber.currentTarget.dataset.flipped = 'true';
-            card.classList.add('flipped')
-            checkArray(); 
+            
+            if (userArray.length === 2){
+                checkArray(); 
+            }
         };
     });
 });
@@ -57,32 +70,35 @@ cardCollect.forEach(card => {
 
 function checkArray(){
     if (userArray.length == 2){
-        let userFirstClick = document.getElementById(userArray[0]);
-        let userSecondClick = document.getElementById(userArray[1]);
+        const [firstCard, secondCard] = userArray;
 
-        if (userFirstClick.id === userSecondClick.id){
-            moves++;
+        if (firstCard.id === secondCard.id){
+        
             score++;
-
-            scoreCount.innerHTML = score;
-            moveCount.innerHTML = moves;
-
-            
-
             userArray = [];
-            endGame();
-        } else {
-            moves++;
-            moveCount.innerHTML = moves;
-            setTimeout(() => {
-                userFirstClick.classList.remove('flipped');
-                userSecondClick.classList.remove('flipped');
 
-                userFirstClick.dataset.flipped = 'false';
-                userSecondClick.dataset.flipped = 'false';
-                userArray = [];
+        } else {
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+
+                let firstImage = firstCard.querySelector('.back img');
+                let secondImage = secondCard.querySelector('.back img');
+                
+                firstCard.dataset.flipped = 'false';
+                secondCard.dataset.flipped = 'false';
+
+                // firstImage.style.display = 'none';
+                // secondImage.style.display = 'none';
+                
+                
             }, 1000);
         };
+        moves++;
+        scoreCount.innerHTML = score;
+        moveCount.innerHTML = moves;
+        endGame();
+        userArray = [];
     };
 };
 
@@ -100,7 +116,7 @@ function shuffleArray(array) {
 
 function shuffleAndAssignCards() {
     let shuffledIndices = Array.from({length: cardCollect.length}, (_, i) => i);
-    shuffleArray(shuffledIndices); // Shuffle the array of indices
+    shuffleArray(shuffledIndices);
 
     let cardPairs = [];
     for (let i = 0; i < shuffledIndices.length; i++) {
@@ -113,9 +129,7 @@ function shuffleAndAssignCards() {
         card.dataset.flipped = 'false';
         card.classList.remove('flipped');
 
-        
-        let backImg = card.querySelector('.back img');
-        backImg.src = imagePath[cardPairs[index] % imagePath.length];
+    
     });
 };
 
@@ -145,10 +159,11 @@ function resetGame(){
     cardCollect.forEach((card) => {
         card.dataset.flipped = 'false';
         card.classList.remove('flipped');
-    })
-
+        let backImg = card.querySelector('.back img');
+        backImg.src = '';
+    });
     shuffleAndAssignCards();
-}
+};
 
 
 
