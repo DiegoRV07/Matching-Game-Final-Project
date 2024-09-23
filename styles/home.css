@@ -1,0 +1,181 @@
+body {
+    max-width: 1920px;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-areas:
+                    "head head head head "
+                    "navi navi navi navi"
+                    "leftS leftS rightS rightS"
+                    "leftS leftS rightS rightS"
+                    "foot foot foot foot";
+    
+
+}
+
+html {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #8AAAE5;
+    min-height: 100vh;
+}
+
+
+h1 {
+    color: black;
+    text-align: center;
+}
+
+
+header {
+    grid-area: head;
+}
+
+
+
+.container {
+    display: flex;
+    column-gap: 20%;
+}
+
+.leftSide {
+    grid-area: leftS;
+    width: 40%;
+}
+
+.leftSide h2, p{
+    text-align: center;
+}
+
+
+.rightSide {
+    grid-area: rightS;
+    
+}
+
+.rightSide h2 {
+    text-align: center;
+}
+
+#gameButton {
+    background-color: #C8A2C8;
+    color: black;
+    border: 2px solid #C8A2C8;
+    padding: 1.5rem 10px;
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+video {
+    width: 90%;
+    
+}
+
+
+/* Nav Styles */
+
+nav {
+    grid-area: navi;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+nav ul li {
+    list-style-type: none;
+    width: 33.333333%;
+}
+
+nav a {
+    background-color: #C8A2C8;
+    color: white;
+    text-align: center;
+    padding: 8px 0px;
+    text-decoration: none;
+    display: block;
+}
+
+
+nav a:hover, nav a:focus {
+    color: #8AAAE5;
+}
+
+#onPage {
+    color: black;
+    font-weight: bold;
+}
+
+/* Footer */
+
+footer {
+    grid-area: foot;
+}
+
+
+footer {
+    background-color: #C8A2C8;
+    padding: 15px 30px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+footer p {
+    text-align: center;
+    font-size: 50%;
+    color: white;
+}
+
+@media screen and (max-width: 960px) {
+    .leftSide {
+        margin-left: 10%;
+        line-height: 103%;
+    }
+
+    .rightSide {
+        margin-right: 10%;
+
+    }
+
+    video {
+        width: 120%;
+    }
+    
+
+}
+
+@media screen and (max-width: 660px) {
+    .boxBorder {
+        width: 85%;
+    }
+
+}
+
+@media screen and (max-width: 460px) {
+    .boxBorder {
+        width: 80%;
+        margin-top: 10px;
+        
+    }
+
+}
+
+@media screen and (max-width: 960px) {
+
+
+}
